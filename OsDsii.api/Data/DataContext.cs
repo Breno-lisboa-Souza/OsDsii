@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using OsDsii.api.Models;
-
 
 namespace OsDsii.api.Data
 {
@@ -14,15 +12,14 @@ namespace OsDsii.api.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {}
 
-        public DbSet<Customer> Customers { get; set;}
-
+        public DbSet<Customer> Customers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Customer>()
                 .HasIndex(customer => customer.Email)
                 .IsUnique();
-
+        
         }
-}
+    }
 }

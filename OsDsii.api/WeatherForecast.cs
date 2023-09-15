@@ -1,4 +1,4 @@
-namespace OsDsii.api;
+namespace OsDsII.api;
 
 public class WeatherForecast
 {

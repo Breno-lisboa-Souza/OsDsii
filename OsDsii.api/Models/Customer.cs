@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
@@ -12,13 +9,8 @@ namespace OsDsii.api.Models
     [Index(nameof(Email), IsUnique = true)]
     [PrimaryKey(nameof(Id))]
     [Table("customer")]
-    public class Customer
+    public class Customer : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("id")]
-        public int Id { get; set; }
-
         [Required]
         [StringLength(60)]
         [Column("name")]
@@ -33,6 +25,9 @@ namespace OsDsii.api.Models
 
         [Column("phone")]
         [StringLength(20)]
+        [Required]
         public string Phone { get; set; }
+
+
     }
 }

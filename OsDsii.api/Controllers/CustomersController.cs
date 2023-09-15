@@ -52,14 +52,7 @@ namespace OsDsii.api.Controllers
         {
             try
             {
-                Customer currentCustomer = await _dataContext.Customers.FirstOrDefaultAsync(c => c.Id == customer.Id);
-                // REGRA QUE VERIFICA SE USUÁRIO JA EXISTE
-                if (currentCustomer != null && currentCustomer.Equals(customer))
-                {
-                    return BadRequest("Usuário já existe");
-                }
-                await _dataContext.AddAsync(customer);
-                await _dataContext.SaveChangesAsync();
+                Customer currentCustomer = await _customersService.CreateCustomerAsync(customer);
                 return Ok(customer);
             }
             catch (Exception ex)
@@ -74,16 +67,7 @@ namespace OsDsii.api.Controllers
         {
             try
             {
-                Customer currentCustomer = await _dataContext.Customers.FirstOrDefaultAsync(c => id == c.Id);
-                if (currentCustomer is null)
-                {
-                    throw new Exception("Not found");
-                }
-                currentCustomer.Name = customer.Name;
-                currentCustomer.Email = customer.Email;
-                currentCustomer.Phone = customer.Phone;
-                await _dataContext.SaveChangesAsync();
-
+                Customer currentCustomer = await _customersService.UpdateCustomerAsync(id, customer);
                 return Ok();
             }
             catch (Exception ex)
@@ -97,14 +81,9 @@ namespace OsDsii.api.Controllers
         {
             try
             {
-                Customer customer = await _dataContext.Customers.FirstOrDefaultAsync(c => id == c.Id);
-                if (customer is null)
-                {
-                    throw new Exception("Not found");
-                }
-                _dataContext.Customers.Remove(customer);
-                await _dataContext.SaveChangesAsync();
-                return Ok();
+                Customer customer = await _customersService.GetCustomerByIdAsync(id);
+                await _customersService.DeleteCustomerAsync(id, customer);
+                return NoContent();
             }
             catch (Exception ex)
             {

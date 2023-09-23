@@ -1,20 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
-using OsDsii.api.Data;
-using OsDsii.api.Models;
-using OsDsii.api.Services.Interaces;
+﻿using Microsoft.AspNetCore.Mvc;
+using OsDsII.api.Exceptions;
+using OsDsII.api.Models;
+using OsDsII.api.Services.Interaces;
 
-namespace OsDsii.api.Controllers
+namespace OsDsII.api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class CustomersController : ControllerBase
     {
-        private readonly DataContext _dataContext;
         private readonly ICustomersService _customersService;
-        public CustomersController(DataContext dataContext, ICustomersService customersService)
+        public CustomersController(ICustomersService customersService)
         {
-            _dataContext = dataContext;
             _customersService = customersService;
         }
 
@@ -26,9 +23,9 @@ namespace OsDsii.api.Controllers
                 IEnumerable<Customer> customers = await _customersService.GetAllCustomersAsync();
                 return Ok(customers);
             }
-            catch (Exception ex)
+            catch (BaseException ex)
             {
-                return BadRequest(ex.Message);
+                return ex.GetResponse();
             }
         }
 
@@ -40,9 +37,9 @@ namespace OsDsii.api.Controllers
                 Customer customer = await _customersService.GetCustomerByIdAsync(id);
                 return Ok(customer);
             }
-            catch (Exception ex)
+            catch (BaseException ex)
             {
-                return BadRequest(ex.Message);
+                return ex.GetResponse();
             }
 
         }
@@ -55,9 +52,9 @@ namespace OsDsii.api.Controllers
                 Customer currentCustomer = await _customersService.CreateCustomerAsync(customer);
                 return Ok(customer);
             }
-            catch (Exception ex)
+            catch (BaseException ex)
             {
-                return BadRequest(ex.Message);
+                return ex.GetResponse();
             }
 
         }
@@ -70,9 +67,9 @@ namespace OsDsii.api.Controllers
                 Customer currentCustomer = await _customersService.UpdateCustomerAsync(id, customer);
                 return Ok();
             }
-            catch (Exception ex)
+            catch (BaseException ex)
             {
-                return BadRequest(ex.Message);
+                return ex.GetResponse();
             }
         }
 
@@ -85,9 +82,9 @@ namespace OsDsii.api.Controllers
                 await _customersService.DeleteCustomerAsync(id, customer);
                 return NoContent();
             }
-            catch (Exception ex)
+            catch (BaseException ex)
             {
-                return BadRequest(ex.Message);
+                return ex.GetResponse();
             }
 
         }

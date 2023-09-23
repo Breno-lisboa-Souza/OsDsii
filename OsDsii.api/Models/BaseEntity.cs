@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace OsDsii.api.Models
+namespace OsDsII.api.Models
 {
     public class BaseEntity
     {

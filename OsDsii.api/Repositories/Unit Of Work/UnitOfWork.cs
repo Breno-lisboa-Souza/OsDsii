@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using OsDsii.api.Data;
+using OsDsII.api.data;
 
-namespace OsDsii.Repositories.UnitOfWork
+namespace OsDsII.api.Repositories.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {

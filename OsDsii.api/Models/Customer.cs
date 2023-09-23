@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
-namespace OsDsii.api.Models
+namespace OsDsII.api.Models
 {
     [Index(nameof(Email), IsUnique = true)]
     [PrimaryKey(nameof(Id))]

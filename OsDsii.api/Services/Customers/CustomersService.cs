@@ -1,9 +1,10 @@
-using OsDsii.api.Models;
-using OsDsii.api.Repositories.Interfaces;
-using OsDsii.api.Services.Interaces;
-using OsDsii.api.Repositories.UnitOfWork;
+using OsDsII.api.Models;
+using OsDsII.api.Repositories.Interfaces;
+using OsDsII.api.Services.Interaces;
+using OsDsII.api.Repositories.UnitOfWork;
+using OsDsII.api.Exceptions;
 
-namespace OsDsii.api.Services
+namespace OsDsII.api.Services
 {
     public class CustomersService : ICustomersService
     {
@@ -27,7 +28,7 @@ namespace OsDsii.api.Services
 
             if (customer == null)
             {
-                throw new Exception("Not found");
+                throw new NotFoundException("Customer");
             }
 
             return customer;
@@ -50,7 +51,7 @@ namespace OsDsii.api.Services
             Customer currentCustomer = await _customersRepository.GetCustomerByIdAsync(id);
             if (currentCustomer is null)
             {
-                throw new Exception("Not found");
+                throw new NotFoundException("Customer");
             }
 
             currentCustomer.Name = customer.Name;
@@ -66,7 +67,7 @@ namespace OsDsii.api.Services
             Customer currentCustomer = await _customersRepository.GetCustomerByIdAsync(id);
             if(currentCustomer is null)
             {
-                throw new Exception("Customer not found");
+                throw new NotFoundException("Customer");
             }
 
             _customersRepository.RemoveCustomer(customer);
